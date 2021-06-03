@@ -1,35 +1,32 @@
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import firebase from "firebase/app";
-import "firebase/auth";
-import initFirebase from "../../../libs/firebase";
-import styled from "styled-components";
+import firebase from 'firebase/app';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
+import initFirebase from '../../../libs/firebase';
+import 'firebase/auth';
 
 initFirebase();
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
+type AuthConfig = {
+  signInSuccessUrl: string;
+};
 
-const firebaseAuthConfig = () => ({
-  signInFlow: "redirect",
+const firebaseAuthConfig = ({ signInSuccessUrl }: AuthConfig) => ({
+  signInFlow: 'popup',
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-  credentialHelper: "none",
-  callbacks: {
-    signInSuccessWithAuthResult: () => false,
-  },
+  signInSuccessUrl,
+  credentialHelper: 'none',
 });
 
 const FirebaseAuth = () => {
+  const signInSuccessUrl = '/dashboard';
+
   return (
-    <Wrapper>
+    <div>
       <StyledFirebaseAuth
-        uiConfig={firebaseAuthConfig()}
+        uiConfig={firebaseAuthConfig({ signInSuccessUrl })}
         firebaseAuth={firebase.auth()}
       />
-    </Wrapper>
+    </div>
   );
 };
 

@@ -1,15 +1,12 @@
-import { useRouter } from "next/dist/client/router";
-import { useEffect, useState } from "react";
-import firebase from "firebase/app";
-import "firebase/auth";
+import { useEffect, useState } from 'react';
 
-import initFirebase from "../../../libs/firebase";
-import {
-  getUserFromCookie,
-  removeUserCookie,
-  setUserCookie,
-} from "../userCookie";
-import { UserType } from "../types/UserType";
+import firebase from 'firebase/app';
+import { useRouter } from 'next/dist/client/router';
+import 'firebase/auth';
+
+import initFirebase from '../../../libs/firebase';
+import { UserType } from '../types/UserType';
+import { getUserFromCookie, removeUserCookie, setUserCookie } from '../userCookie';
 
 initFirebase();
 
@@ -33,7 +30,7 @@ const useUser = () => {
       .auth()
       .signOut()
       .then(() => {
-        router.push("/");
+        router.push('/');
       })
       .catch((e) => {
         console.error(e);
@@ -41,18 +38,16 @@ const useUser = () => {
   };
 
   useEffect(() => {
-    const cancelAuthListener = firebase
-      .auth()
-      .onIdTokenChanged(async (userToken) => {
-        if (userToken) {
-          const userData = await mapUserData(userToken);
-          setUserCookie(userData);
-          setUser(userData);
-        } else {
-          removeUserCookie();
-          setUser(undefined);
-        }
-      });
+    const cancelAuthListener = firebase.auth().onIdTokenChanged(async (userToken) => {
+      if (userToken) {
+        const userData = await mapUserData(userToken);
+        setUserCookie(userData);
+        setUser(userData);
+      } else {
+        removeUserCookie();
+        setUser(undefined);
+      }
+    });
 
     const userFromCookie = getUserFromCookie();
     if (userFromCookie) {

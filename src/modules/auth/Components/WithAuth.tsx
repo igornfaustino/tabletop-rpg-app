@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import router from "next/router";
-import firebase from "firebase/app";
-import "firebase/auth";
-import initFirebase from "../../../libs/firebase";
-import FirebaseAuth from "./FirebaseAuth";
+import React, { useEffect, useState } from 'react';
+
+import firebase from 'firebase/app';
+
+import 'firebase/auth';
+import initFirebase from '../../../libs/firebase';
 
 initFirebase();
 const auth = firebase.auth();
@@ -22,7 +22,7 @@ const withAuth = (Component: React.FC) => (props: any) => {
     });
   }, []);
 
-  if (!isReady) return <React.Fragment />;
+  if (!isReady) return <></>;
 
   return (
     <div>

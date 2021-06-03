@@ -1,8 +1,9 @@
-import cookies from "js-cookie";
-import { UserType } from "./types/UserType";
+import cookies from 'js-cookie';
+
+import { UserType } from './types/UserType';
 
 export const getUserFromCookie = (): UserType | null => {
-  const cookie = cookies.get("auth");
+  const cookie = cookies.get('auth');
   if (!cookie) {
     return null;
   }
@@ -10,9 +11,9 @@ export const getUserFromCookie = (): UserType | null => {
 };
 
 export const setUserCookie = (user: UserType) => {
-  cookies.set("auth", user, {
+  cookies.set('auth', user, {
     expires: 30,
   });
 };
 
-export const removeUserCookie = () => cookies.remove("auth");
+export const removeUserCookie = () => cookies.remove('auth');
