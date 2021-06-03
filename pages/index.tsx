@@ -2,12 +2,18 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import styled from "styled-components";
+import useUser from "../src/modules/auth/hooks/useUser";
+import withAuth from "../src/modules/auth/Components/WithAuth";
 
 const Title = styled.h1`
   color: red;
 `;
 
-export default function Home() {
+function Home() {
+  const { user } = useUser();
+
+  console.log(user);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -73,3 +79,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default withAuth(Home);
